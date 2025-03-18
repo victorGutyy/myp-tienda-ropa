@@ -1,0 +1,97 @@
+<?php
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+use App\Models\Message;
+
+// Página de inicio con formulario de login/registro
+Route::get('/', function () {
+    return view('index'); // Asegúrate de que index.blade.php existe en resources/views/
+})->name('index');
+
+// Ruta para procesar el login
+Route::post('/login', function (Request $request) {
+    // Validar los datos ingresados
+    $credentials = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required'
+    ]);
+
+    // Intentar autenticar usuario
+    if (Auth::attempt($credentials)) {
+        $request->session()->regenerate();
+        return redirect()->route('home')->with('success', 'Inicio de sesión exitoso.');
+    }
+
+    // Si falla, devuelve con error
+    return back()->withErrors([
+        'email' => 'Credenciales incorrectas',
+    ]);
+})->name('login.post');
+
+// Ruta para procesar el registro de usuarios
+Route::post('/register', function (Request $request) {
+    // Validar los datos del formulario
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|min:6|confirmed',
+    ]);
+
+    // Crear usuario en la base de datos
+    User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password), // Encripta la contraseña
+    ]);
+
+    return redirect()->route('index')->with('success', 'Registro exitoso. Ahora puedes iniciar sesión.');
+})->name('register');
+
+// Ruta para cerrar sesión
+Route::post('/logout', function (Request $request) {
+    Auth::logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+    return redirect()->route('index')->with('success', 'Sesión cerrada correctamente.');
+})->name('logout');
+
+// Páginas del sitio
+Route::get('/home', function () {
+    return view('home');
+})->name('home');
+
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+Route::get('/shop', function () {
+    return view('shop');
+})->name('shop');
+
+Route::get('/tenis', function () {
+    return view('tenis');
+})->name('tenis');
+
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact'); // 🔹 Ahora se puede acceder con GET para mostrar la página
+
+Route::post('/contact', function (Request $request) {
+    // Validar datos
+    $request->validate([
+        'name' => 'required',
+        'email' => 'required|email',
+        'subject' => 'required',
+        'message' => 'required',
+    ]);
+
+    // Guardar en la base de datos
+    Message::create($request->all());
+
+    return back()->with('success', 'Mensaje enviado correctamente.');
+})->name('contact.post');

@@ -1,0 +1,116 @@
+/*
+Custom Css
+*/
+.logo-img {
+    width: 80px; /* Tamaño del logo */
+    height: 80px; /* Tamaño del logo */
+    border-radius: 50%; /* Mantiene el logo circular */
+    object-fit: cover; /* Ajusta la imagen para que llene el espacio sin recortes */
+    display: block;
+    background-color: white; /* Asegura un fondo si la imagen no es transparente */
+    padding: 5px; /* Evita que la imagen toque los bordes */
+}
+
+body { 
+    background-color: #F8F8FF;
+}
+/* Estilos para el Formulario */
+.form-container {
+    background: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
+    backdrop-filter: blur(10px); /* Efecto de desenfoque */
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    max-width: 450px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Botón estilizado */
+.btn-custom {
+    background: linear-gradient(135deg, #16a085, #27ae60);
+    color: white;
+    font-weight: bold;
+    padding: 12px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.btn-custom:hover {
+    background: linear-gradient(135deg, #1abc9c, #2ecc71);
+    transform: scale(1.05);
+}
+
+/* Título con Efecto */
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+/* Estilos generales para las cards */
+.product-card {
+    height: 100%; /* Asegura que todas las tarjetas tengan la misma altura */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribuye el contenido equitativamente */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Efecto hover */
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para las imágenes dentro de las cards */
+.product-img {
+    height: 250px; /* Tamaño uniforme para todas las imágenes */
+    object-fit: cover; /* Asegura que la imagen no se deforme */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* Estilo para los títulos de los productos */
+.product-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Estilo para los precios */
+.product-price {
+    font-size: 1rem;
+    color: #28a745;
+    font-weight: bold;
+}
+
+/* Botón personalizado */
+.add-to-cart {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background 0.3s ease-in-out;
+}
+
+.add-to-cart:hover {
+    background-color: #0056b3;
+}
