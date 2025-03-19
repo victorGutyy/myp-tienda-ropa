@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Message;
+use App\Http\Controllers\ProductController;
+
+Route::resource('products', ProductController::class);
 
 // Página de inicio con formulario de login/registro
 Route::get('/', function () {
