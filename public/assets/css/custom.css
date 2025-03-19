@@ -104,7 +104,7 @@ body {
 .add-to-cart {
     background-color: #007bff;
     border: none;
-    color: white;
+    color: rgb(252, 252, 252);
     padding: 10px;
     border-radius: 5px;
     font-size: 1rem;
@@ -113,4 +113,24 @@ body {
 
 .add-to-cart:hover {
     background-color: #0056b3;
+}
+
+.img-fluid {
+    width: 300px; /* Tamaño del logo */
+    height: 300px; /* Tamaño del logo */
+    border-radius: 200%; /* Mantiene el logo circular */
+    object-fit: cover; /* Ajusta la imagen para que llene el espacio sin recortes */
+    display: block;
+    background-color: white; /* Asegura un fondo si la imagen no es transparente */
+    padding: 5px; /* Evita que la imagen toque los bordes */
+}
+
+.card-img-top {
+    width: 250px; /* Tamaño del logo */
+    height: 250px; /* Tamaño del logo */
+    border-radius: 200%; /* Mantiene el logo circular */
+    object-fit: cover; /* Ajusta la imagen para que llene el espacio sin recortes */
+    display: block;
+    background-color: white; /* Asegura un fondo si la imagen no es transparente */
+    padding: 5px; /* Evita que la imagen toque los bordes */
 }
