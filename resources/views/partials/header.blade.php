@@ -17,6 +17,26 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('about') }}">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('shop') }}">Shop</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('contact') }}">Contact</a></li>
+                    
+                    @auth
+                    @if(Auth::user()->role === 'admin')
+                    <li class="nav-item mx-2">
+                    <a href="{{ route('admin.products.index') }}" class="btn btn-custom btn-sm">
+                    <i class="fas fa-cogs me-1"></i> Admin
+                    </a>
+                     </li>
+                     <li class="nav-item">
+                     <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                    @csrf
+                    <button type="submit" class="btn btn-outline-danger btn-sm">
+                    <i class="fas fa-sign-out-alt me-1"></i> Salir
+                    </button>
+                    </form>
+                    </li>
+                    @endif
+                    @endauth
+
+
                 </ul>
                 
             </div>

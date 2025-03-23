@@ -6,7 +6,7 @@
 <div class="container mt-5">
     <h2 class="text-center">Administrar Productos</h2>
 
-    <a href="{{ route('products.create') }}" class="btn btn-primary mb-3">Agregar Producto</a>
+    <a href="{{ route('admin.products.create') }}" class="btn btn-primary mb-3">Agregar Producto</a>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -30,8 +30,8 @@
                     <td>${{ number_format($product->price, 2) }}</td>
                     <td>{{ $product->quantity }}</td>
                     <td>
-                        <a href="{{ route('products.edit', $product) }}" class="btn btn-warning">Editar</a>
-                        <form action="{{ route('products.destroy', $product) }}" method="POST" style="display:inline-block;">
+                        <a href="{{ route('admin.products.edit', $product) }}" class="btn btn-warning">Editar</a>
+                        <form action="{{ route('admin.products.destroy', $product) }}" method="POST" style="display:inline-block;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Eliminar</button>

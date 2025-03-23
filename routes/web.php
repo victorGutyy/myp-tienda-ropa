@@ -8,12 +8,12 @@ use App\Models\User;
 use App\Models\Message;
 use App\Http\Controllers\ProductController;
 
-Route::resource('products', ProductController::class);
-
 // Página de inicio con formulario de login/registro
 Route::get('/', function () {
     return view('index'); // Asegúrate de que index.blade.php existe en resources/views/
 })->name('index');
+
+
 
 // Ruta para procesar el login
 Route::post('/login', function (Request $request) {
@@ -23,10 +23,16 @@ Route::post('/login', function (Request $request) {
         'password' => 'required'
     ]);
 
-    // Intentar autenticar usuario
+    // Aquí va la modificación que necesitas hacer:
     if (Auth::attempt($credentials)) {
         $request->session()->regenerate();
-        return redirect()->route('home')->with('success', 'Inicio de sesión exitoso.');
+
+        // 👇 Este bloque lo debes agregar/modificar:
+        if (Auth::user()->role === 'admin') {
+            return redirect()->route('admin.products.index'); // Ir directo al CRUD
+        }
+
+        return redirect()->route('home'); // Usuarios normales
     }
 
     // Si falla, devuelve con error
@@ -34,6 +40,10 @@ Route::post('/login', function (Request $request) {
         'email' => 'Credenciales incorrectas',
     ]);
 })->name('login.post');
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('admin/products', ProductController::class)->names('admin.products');
+});
 
 // Ruta para procesar el registro de usuarios
 Route::post('/register', function (Request $request) {

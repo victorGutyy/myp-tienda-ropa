@@ -18,6 +18,8 @@
     
 </head>
 
+@php use Illuminate\Support\Facades\Auth; @endphp
+
 <body>
     <!-- Top Nav -->
     <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
@@ -57,6 +59,26 @@
                         <li class="nav-item"><a class="nav-link" href="{{ url('/about') }}">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url('/shop') }}">Shop</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url('/contact') }}">Contact</a></li>
+
+                        
+                     @auth
+                    @if(Auth::user()->role === 'admin')
+                    <li class="nav-item mx-2">
+                    <a href="{{ route('admin.products.index') }}" class="btn btn-custom btn-sm">
+                    <i class="fas fa-cogs me-1"></i> Admin
+                    </a>
+                     </li>
+                     <li class="nav-item">
+                     <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                    @csrf
+                    <button type="submit" class="btn btn-outline-danger btn-sm">
+                    <i class="fas fa-sign-out-alt me-1"></i> Salir
+                    </button>
+                    </form>
+                    </li>
+                    @endif
+                    @endauth
+
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">

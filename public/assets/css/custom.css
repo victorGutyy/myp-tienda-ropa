@@ -134,3 +134,32 @@ body {
     background-color: white; /* Asegura un fondo si la imagen no es transparente */
     padding: 5px; /* Evita que la imagen toque los bordes */
 }
+
+/* Botones del panel admin */
+.btn-custom {
+    background: linear-gradient(135deg, #16a085, #27ae60);
+    color: white;
+    font-weight: 500;
+    border: none;
+    transition: 0.3s ease-in-out;
+}
+
+.btn-custom:hover {
+    background: linear-gradient(135deg, #1abc9c, #2ecc71);
+    transform: scale(1.05);
+    color: white;
+}
+
+/* Botón cerrar sesión */
+.btn-outline-danger {
+    color: #dc3545;
+    border: 1px solid #dc3545;
+    font-weight: 500;
+    transition: 0.3s ease-in-out;
+}
+
+.btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+    transform: scale(1.05);
+}
