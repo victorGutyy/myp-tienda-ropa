@@ -163,3 +163,30 @@ body {
     color: white;
     transform: scale(1.05);
 }
+
+.about-hero {
+    background: url('../img/tiendamyp.jpg') no-repeat center center;
+    background-size: cover;
+    height: 70vh;
+    position: relative;
+}
+
+.about-hero::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Sombra oscura */
+    z-index: 1;
+}
+
+.about-hero .container {
+    position: relative;
+    z-index: 2;
+}
+
+.about-hero h1,
+.about-hero p {
+    color: white;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+}
+

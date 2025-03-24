@@ -36,4 +36,13 @@ class CartController extends Controller
 
         return back()->with('success', 'Producto eliminado del carrito.');
     }
+
+    public function checkout()
+{
+    $cart = Session::get('cart', []);
+    $total = array_sum(array_column($cart, 'price'));
+
+    return view('cart.checkout', compact('cart', 'total'));
+}
+
 }

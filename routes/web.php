@@ -101,6 +101,13 @@ Route::get('/ropa-femenina', function () {
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+Route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+
+Route::get('/confirmacion', function () {
+    Session::forget('cart'); // Vaciar el carrito
+    return view('cart.confirm');
+})->name('cart.confirm');
+
 
 
 

@@ -40,7 +40,7 @@
 
         <div class="d-flex justify-content-between align-items-center mt-3">
             <h4 class="text-success">Total a pagar: ${{ number_format($total, 0, ',', '.') }}</h4>
-            <a href="#" class="btn btn-success">Proceder al pago</a>
+            <a href="{{ route('cart.checkout') }}" class="btn btn-success">Proceder al pago</a>
         </div>
     </div>
 </div>
