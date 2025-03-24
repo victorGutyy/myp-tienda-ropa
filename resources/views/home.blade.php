@@ -34,7 +34,7 @@
                     <img src="{{ asset('assets/img/marca_tenis.jpg') }}" class="card-img-top" alt="Producto 1">
                     <div class="card-body">
                         <h5 class="card-title">tenis</h5>
-                        <p class="card-text">Desde $180000</p>
+                        <p class="card-text">Desde $150.000</p>
                         <a href="{{ route('tenis') }}" class="btn btn-primary">Ver más</a>
                     </div>
                 </div>
@@ -45,8 +45,8 @@
                     <img src="{{ asset('assets/img/femenino.jpg') }}" class="card-img-top" alt="Producto 2">
                     <div class="card-body">
                         <h5 class="card-title">Ropa Femenina</h5>
-                        <p class="card-text">Desde $50000</p>
-                        <a href="#" class="btn btn-primary">Ver más</a>
+                        <p class="card-text">Desde $80.000</p>
+                        <a href="{{ route('ropa.femenina') }}" class="btn btn-primary">Ver más</a>
                     </div>
                 </div>
             </div>
@@ -56,8 +56,8 @@
                     <img src="{{ asset('assets/img/masculino.jpg') }}" class="card-img-top" alt="Producto 3">
                     <div class="card-body">
                         <h5 class="card-title">Ropa masculina</h5>
-                        <p class="card-text">Desde $50000</p>
-                        <a href="#" class="btn btn-primary">Ver más</a>
+                        <p class="card-text">Desde $100.000</p>
+                        <a href="{{ route('ropa.masculina') }}" class="btn btn-primary">Ver más</a>
                     </div>
                 </div>
             </div>

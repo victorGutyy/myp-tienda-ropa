@@ -89,6 +89,15 @@ Route::get('/tenis', function () {
     return view('tenis');
 })->name('tenis');
 
+Route::get('/ropa-masculina', function () {
+    return view('ropa_masculina');
+})->name('ropa.masculina');
+
+Route::get('/ropa-femenina', function () {
+    return view('ropa_femenina');
+})->name('ropa.femenina');
+
+
 
 Route::get('/contact', function () {
     return view('contact');
