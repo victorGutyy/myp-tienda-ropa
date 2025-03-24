@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Message;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 
 // Página de inicio con formulario de login/registro
 Route::get('/', function () {
@@ -97,6 +98,10 @@ Route::get('/ropa-femenina', function () {
     return view('ropa_femenina');
 })->name('ropa.femenina');
 
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+
 
 
 Route::get('/contact', function () {
@@ -117,3 +122,4 @@ Route::post('/contact', function (Request $request) {
 
     return back()->with('success', 'Mensaje enviado correctamente.');
 })->name('contact.post');
+

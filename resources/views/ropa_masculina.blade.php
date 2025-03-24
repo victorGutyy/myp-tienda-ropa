@@ -17,7 +17,12 @@
                     <div class="card-body text-center">
                         <h5 class="card-title product-title">Camisa {{ $i }}</h5>
                         <p class="card-text product-price">Precio: <strong>$80.000</strong></p>
-                        <button class="btn btn-primary w-100 add-to-cart" data-product="Camisa {{ $i }}" data-price="80000">Añadir al carrito 🛒</button>
+                        <form action="{{ route('cart.add') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="product" value="Camisa {{ $i }}">
+                        <input type="hidden" name="price" value="100000">
+                        <button type="submit" class="btn btn-primary w-100">Añadir al carrito 🛒</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -31,7 +36,14 @@
                     <div class="card-body text-center">
                         <h5 class="card-title product-title">Pantalón {{ $i }}</h5>
                         <p class="card-text product-price">Precio: <strong>$100.000</strong></p>
-                        <button class="btn btn-primary w-100 add-to-cart" data-product="Pantalón {{ $i }}" data-price="100000">Añadir al carrito 🛒</button>
+                        <form action="{{ route('cart.add') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="product" value="Pantalon {{ $i }}">
+                        <input type="hidden" name="price" value="100000">
+                        <button type="submit" class="btn btn-primary w-100">Añadir al carrito 🛒</button>
+                        </form>
+
+
                     </div>
                 </div>
             </div>

@@ -16,7 +16,12 @@
                     <div class="card-body text-center">
                         <h5 class="card-title product-title">Prenda Femenina {{ $i }}</h5>
                         <p class="card-text product-price">Precio: <strong>$100.000</strong></p>
-                        <button class="btn btn-primary w-100 add-to-cart" data-product="Prenda Femenina {{ $i }}" data-price="120000">Añadir al carrito 🛒</button>
+                        <form action="{{ route('cart.add') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="product" value="Prenda Femenina {{ $i }}">
+                        <input type="hidden" name="price" value="100000">
+                        <button type="submit" class="btn btn-primary w-100">Añadir al carrito 🛒</button>
+                        </form>
                     </div>
                 </div>
             </div>

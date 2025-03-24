@@ -82,10 +82,14 @@
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">
-                    <a class="nav-icon position-relative text-decoration-none" href="#">
-                        <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
-                        <span class="badge rounded-pill bg-light text-dark">7</span>
-                    </a>
+                <a class="nav-icon position-relative text-decoration-none" href="{{ route('cart.index') }}">
+                <i class="fa fa-fw fa-shopping-cart text-dark"></i>
+                <span class="badge rounded-pill bg-light text-dark">
+                {{ count(session('cart', [])) }}
+                </span>
+                 </a>
+
+                 
                     <a class="nav-icon position-relative text-decoration-none" href="#">
                         <i class="fa fa-fw fa-user text-dark mr-3"></i>
                         <span class="badge rounded-pill bg-light text-dark">+99</span>
