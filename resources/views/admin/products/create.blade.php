@@ -6,7 +6,7 @@
 <div class="container mt-5">
     <h2 class="text-center">Agregar Nuevo Producto</h2>
 
-    <form action="{{ route('products.store') }}" method="POST">
+    <form action="{{ route('admin.products.store') }}" method="POST">
         @csrf
         <div class="mb-3">
             <label class="form-label">Nombre del Producto</label>
