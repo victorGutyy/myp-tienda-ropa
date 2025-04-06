@@ -9,7 +9,7 @@
             <div class="row align-items-center py-5">
                 <div class="col-md-8 text-dark">
                     <h1>Bienvenido a nuestra tienda</h1>
-                    <p>Encuentra la mejor moda y calzado con la mejor calidad y estilo. Explora nuestras colecciones exclusivas.</p>
+                    <p>Encuentra la mejor moda y calzado con la mejor calidad y estilo. Explora nuestras ofertas exclusivas.</p>
                     <a href="{{ route('shop') }}" class="btn btn-success">Ir a la tienda</a>
                 </div>
                 <div class="col-md-4">
@@ -23,7 +23,7 @@
     <section class="container py-5">
         <div class="row text-center">
             <div class="col-lg-6 m-auto">
-                <h2 class="h2">Productos Destacados</h2>
+                <h2 class="h2">Productos</h2>
                 <p>Explora algunos de nuestros productos más populares y en tendencia.</p>
             </div>
         </div>

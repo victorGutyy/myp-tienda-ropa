@@ -186,7 +186,28 @@ body {
 
 .about-hero h1,
 .about-hero p {
-    color: white;
+    color: #ecf2f1;
     text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
 }
+
+.historia-section {
+    background-color: #f8f9fa; /* fondo suave */
+    padding: 60px 0;
+}
+
+.historia-section h2 {
+    color: #28a745; /* Verde de Bootstrap (text-success) */
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-align: center;
+
+}
+
+.historia-section p {
+    color: #121315; /* Texto oscuro */
+    font-size: 1.2rem;
+    line-height: 1.6;
+    text-align: center;
+}
+
 
