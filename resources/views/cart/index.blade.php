@@ -34,12 +34,17 @@
             </tbody>
         </table>
 
-        @php
-            $total = array_sum(array_column($cart, 'price'));
-        @endphp
+@php
+    $total = array_sum(array_column($cart, 'price')); // con IVA incluido
+    $subtotal = $total / 1.19;
+    $iva = $total - $subtotal;
+@endphp
 
-        <div class="d-flex justify-content-between align-items-center mt-3">
-            <h4 class="text-success">Total a pagar: ${{ number_format($total, 0, ',', '.') }}</h4>
+
+<div class="text-end mt-3">
+<p><strong>Subtotal:</strong> ${{ number_format($subtotal, 0, ',', '.') }}</p>
+<p><strong>IVA (19%):</strong> ${{ number_format($iva, 0, ',', '.') }}</p>
+<h4><strong>Total a pagar:</strong> <span class="text-success">${{ number_format($total, 0, ',', '.') }}</span></h4>
             <a href="{{ route('cart.checkout') }}" class="btn btn-success">Proceder al pago</a>
         </div>
     </div>

@@ -46,6 +46,12 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('admin/products', ProductController::class)->names('admin.products');
 });
 
+// Ruta para mostrar el formulario de registro
+Route::get('/register', function () {
+    return view('auth.register'); // Asegúrate de crear esta vista
+})->name('register.form');
+
+
 // Ruta para procesar el registro de usuarios
 Route::post('/register', function (Request $request) {
     // Validar los datos del formulario
@@ -54,7 +60,7 @@ Route::post('/register', function (Request $request) {
         'email' => 'required|string|email|max:255|unique:users',
         'password' => 'required|string|min:6|confirmed',
     ]);
-
+    
     // Crear usuario en la base de datos
     User::create([
         'name' => $request->name,
@@ -64,6 +70,10 @@ Route::post('/register', function (Request $request) {
 
     return redirect()->route('index')->with('success', 'Registro exitoso. Ahora puedes iniciar sesión.');
 })->name('register');
+
+Route::get('/politica-de-datos', function () {
+    return view('politica'); // Crea esta vista en resources/views/politica.blade.php
+})->name('politica');
 
 // Ruta para cerrar sesión
 Route::post('/logout', function (Request $request) {

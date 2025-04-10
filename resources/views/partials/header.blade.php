@@ -13,10 +13,10 @@
         <div class="align-self-center collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
             <div class="flex-fill">
                 <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('about') }}">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('shop') }}">Shop</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('contact') }}">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">INICIO</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('about') }}">NOSOTROS</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('shop') }}">TIENDA</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('contact') }}">CONTACTONOS</a></li>
                     
                     @auth
                     @if(Auth::user()->role === 'admin')

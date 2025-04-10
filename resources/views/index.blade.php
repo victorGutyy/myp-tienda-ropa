@@ -21,9 +21,13 @@
                         <input type="password" name="password" class="form-control rounded-3" required>
                     </div>
                     <button type="submit" class="btn btn-success w-100 rounded-3 py-2">Iniciar Sesión</button>
+                    <p class="text-center mt-2 small text-muted">
+    Al iniciar sesión, aceptas nuestra <a href="{{ route('politica') }}">Política de Tratamiento de Datos</a> y nuestras prácticas de seguridad informática.
+</p>
                 </form>
+
                 <div class="text-center">
-                    <p class="mt-3">¿No tienes cuenta? <a href="#" id="showRegister">Regístrate</a></p>
+                    <p class="mt-3">¿No tienes cuenta? <a href="{{ route('register.form') }}">Regístrate</a></p>
                 </div>
             </div>
             

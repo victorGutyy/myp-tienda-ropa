@@ -14,17 +14,26 @@ class CartController extends Controller
     }
 
     public function add(Request $request)
-    {
-        $product = $request->input('product');
-        $price = $request->input('price');
+{
+    $product = $request->input('product');
+    $basePrice = $request->input('price');
 
-        $cart = Session::get('cart', []);
-        $cart[] = ['product' => $product, 'price' => $price];
+    $iva = $basePrice * 0.19;
+    $priceWithIva = $basePrice + $iva;
 
-        Session::put('cart', $cart);
+    $cart = Session::get('cart', []);
+    $cart[] = [
+        'product' => $product,
+        'price' => $priceWithIva,
+        'iva' => $iva,
+        'base_price' => $basePrice
+    ];
 
-        return back()->with('success', 'Producto añadido al carrito.');
-    }
+    Session::put('cart', $cart);
+
+    return back()->with('success', 'Producto añadido al carrito.');
+}
+
 
     public function remove(Request $request)
     {

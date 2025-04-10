@@ -55,10 +55,10 @@
             <div class="collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                        <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url('/about') }}">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url('/shop') }}">Shop</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url('/contact') }}">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">INICIO</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('/about') }}">NOSOTROS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('/shop') }}">TIENDA</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('/contact') }}">CONTACTONOS</a></li>
 
                         
                      @auth

@@ -35,7 +35,7 @@
                     <img src="{{ asset('assets/img/pantalon' . $i . '.jpg') }}" class="card-img-top" alt="Pantalón {{ $i }}">
                     <div class="card-body text-center">
                         <h5 class="card-title product-title">Pantalón {{ $i }}</h5>
-                        <p class="card-text product-price">Precio: <strong>$100.000</strong></p>
+                        <p class="card-text product-price">Precio sin IVA: <strong>$100.000</strong></p>
                         <form action="{{ route('cart.add') }}" method="POST">
                         @csrf
                         <input type="hidden" name="product" value="Pantalon {{ $i }}">
