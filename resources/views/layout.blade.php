@@ -104,7 +104,6 @@
         @yield('content')
     </main>
 
-    <!-- Footer -->
     <footer class="bg-dark">
         <div class="container">
             <div class="row">
@@ -115,6 +114,21 @@
                         <li><i class="fa fa-phone fa-fw"></i> <a class="text-decoration-none" href="tel:010-020-0340">355-555-9999</a></li>
                         <li><i class="fa fa-envelope fa-fw"></i> <a class="text-decoration-none" href="mailto:info@company.com">MYP_TIENDA@SOLOMODA.com</a></li>
                     </ul>
+                    <div class="mt-3">
+    <a href="https://facebook.com" target="_blank" class="text-light me-3">
+        <i class="fab fa-facebook-f"></i>
+    </a>
+    <a href="https://instagram.com" target="_blank" class="text-light me-3">
+        <i class="fab fa-instagram"></i>
+    </a>
+    <a href="https://twitter.com" target="_blank" class="text-light me-3">
+        <i class="fab fa-twitter"></i>
+    </a>
+    <a href="https://wa.me/573001234567" target="_blank" class="text-light">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+</div>
+
                 </div>
             </div>
         </div>
