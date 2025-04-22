@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Message;
@@ -24,11 +25,9 @@ Route::post('/login', function (Request $request) {
         'password' => 'required'
     ]);
 
-    // Aquí va la modificación que necesitas hacer:
     if (Auth::attempt($credentials)) {
         $request->session()->regenerate();
 
-        // 👇 Este bloque lo debes agregar/modificar:
         if (Auth::user()->role === 'admin') {
             return redirect()->route('admin.products.index'); // Ir directo al CRUD
         }
@@ -38,8 +37,8 @@ Route::post('/login', function (Request $request) {
 
     // Si falla, devuelve con error
     return back()->withErrors([
-        'email' => 'Credenciales incorrectas',
-    ]);
+        'password' => 'La contraseña ingresada es incorrecta. Inténtalo de nuevo.'
+    ])->withInput(); // para mantener el email escrito
 })->name('login.post');
 
 Route::middleware(['auth'])->group(function () {
@@ -70,6 +69,48 @@ Route::post('/register', function (Request $request) {
 
     return redirect()->route('index')->with('success', 'Registro exitoso. Ahora puedes iniciar sesión.');
 })->name('register');
+
+// Mostrar formulario para solicitar link de restablecimiento
+Route::get('/forgot-password', function () {
+    return view('auth.forgot-password');
+})->name('password.request');
+
+// Enviar link por correo
+Route::post('/forgot-password', function (Request $request) {
+    $request->validate(['email' => 'required|email']);
+    $status = Password::sendResetLink($request->only('email'));
+
+    return $status === Password::RESET_LINK_SENT
+        ? back()->with(['status' => __($status)])
+        : back()->withErrors(['email' => __($status)]);
+})->name('password.email');
+
+// Mostrar el formulario para establecer una nueva contraseña
+Route::get('/reset-password/{token}', function (string $token) {
+    return view('auth.reset-password', ['token' => $token]);
+})->name('password.reset');
+
+// Procesar el restablecimiento de contraseña
+Route::post('/reset-password', function (Request $request) {
+    $request->validate([
+        'token' => 'required',
+        'email' => 'required|email',
+        'password' => 'required|string|min:6|confirmed',
+    ]);
+
+    $status = Password::reset(
+        $request->only('email', 'password', 'password_confirmation', 'token'),
+        function ($user, $password) {
+            $user->forceFill([
+                'password' => Hash::make($password)
+            ])->save();
+        }
+    );
+
+    return $status === Password::PASSWORD_RESET
+        ? redirect()->route('index')->with('success', 'Contraseña restablecida. Inicia sesión con tu nueva contraseña.')
+        : back()->withErrors(['email' => [__($status)]]);
+})->name('password.update');
 
 Route::get('/politica-de-datos', function () {
     return view('politica'); // Crea esta vista en resources/views/politica.blade.php

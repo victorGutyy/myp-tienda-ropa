@@ -20,10 +20,21 @@
                         <label class="form-label">Contraseña</label>
                         <input type="password" name="password" class="form-control rounded-3" required>
                     </div>
+
+                    @if ($errors->has('password'))
+                    <div class="alert alert-danger small mt-1">
+                          {{ $errors->first('password') }}
+                    </div>
+                    @endif
+
+                    <div class="text-end">
+                            <a href="{{ route('password.request') }}" class="text-decoration-none small">¿Olvidaste tu contraseña?</a>
+                        </div>
+
                     <button type="submit" class="btn btn-success w-100 rounded-3 py-2">Iniciar Sesión</button>
                     <p class="text-center mt-2 small text-muted">
-    Al iniciar sesión, aceptas nuestra <a href="{{ route('politica') }}">Política de Tratamiento de Datos</a> y nuestras prácticas de seguridad informática.
-</p>
+                    Al iniciar sesión, aceptas nuestra <a href="{{ route('politica') }}">Política de Tratamiento de Datos</a> y nuestras prácticas de seguridad informática.
+                    </p>
                 </form>
 
                 <div class="text-center">
