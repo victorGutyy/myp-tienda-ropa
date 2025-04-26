@@ -137,9 +137,8 @@ Route::get('/shop', function () {
     return view('shop');
 })->name('shop');
 
-Route::get('/tenis', function () {
-    return view('tenis');
-})->name('tenis');
+Route::get('/tenis', [ProductController::class, 'tenis'])->name('tenis');
+
 
 Route::get('/ropa-masculina', function () {
     return view('ropa_masculina');

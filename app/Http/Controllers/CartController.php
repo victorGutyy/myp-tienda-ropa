@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Models\ProductVariant;
+
 
 class CartController extends Controller
 {
@@ -15,18 +17,33 @@ class CartController extends Controller
 
     public function add(Request $request)
 {
-    $product = $request->input('product');
-    $basePrice = $request->input('price');
+    $request->validate([
+        'product_id' => 'required|exists:products,id',
+        'size_id' => 'required|exists:sizes,id',
+        'color_id' => 'required|exists:colors,id',
+    ]);
 
-    $iva = $basePrice * 0.19;
-    $priceWithIva = $basePrice + $iva;
+    // Buscar la variante exacta
+    $variant = ProductVariant::where('product_id', $request->product_id)
+        ->where('size_id', $request->size_id)
+        ->where('color_id', $request->color_id)
+        ->first();
+
+    if (!$variant) {
+        return back()->withErrors(['error' => 'No se encontró una combinación válida de talla y color.']);
+    }
+
+    $iva = $variant->price * 0.19;
+    $priceWithIva = $variant->price + $iva;
 
     $cart = Session::get('cart', []);
     $cart[] = [
-        'product' => $product,
+        'product' => $variant->product->name,
         'price' => $priceWithIva,
         'iva' => $iva,
-        'base_price' => $basePrice
+        'base_price' => $variant->price,
+        'size' => $variant->size->label,
+        'color' => $variant->color->name
     ];
 
     Session::put('cart', $cart);

@@ -16,7 +16,7 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">INICIO</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('about') }}">NOSOTROS</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('shop') }}">TIENDA</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('contact') }}">CONTACTONOS</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('contact') }}">CONTACTANOS</a></li>
                     
                     @auth
                     @if(Auth::user()->role === 'admin')

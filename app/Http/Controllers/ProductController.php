@@ -24,9 +24,11 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'quantity' => 'required|integer|min:1',
+            'category' => 'required|string|max:255', // ➡️ Añadir validación de categoría
         ]);
-
-        Product::create($request->all());
+        
+        Product::create($request->only(['name', 'price', 'quantity', 'category']));
+        
 
         return redirect()->route('admin.products.index')->with('success', 'Producto creado correctamente.');
     }
@@ -42,9 +44,10 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'quantity' => 'required|integer|min:1',
-        ]);
+            'category' => 'required|string|max:255', // ➡️ Añadir validación de categoría
+    ]);
 
-        $product->update($request->all());
+    Product::update($request->only(['name', 'price', 'quantity', 'category']));
 
         return redirect()->route('admin.products.index')->with('success', 'Producto actualizado correctamente.');
     }
@@ -54,4 +57,17 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->route('admin.products.index')->with('success', 'Producto eliminado correctamente.');
     }
+
+    public function tenis()
+{
+    $products = Product::with('variants.color', 'variants.size')
+                ->where('category', 'tenis')
+                ->orderBy('name') // orden por ID ascendente
+                ->get();
+
+    return view('tenis', compact('products'));
+}
+
+
+    
 }

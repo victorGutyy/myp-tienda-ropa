@@ -7,40 +7,42 @@
 <div class="container mt-5">
     <h2 class="text-center text-success">Catálogo de Tenis</h2>
     <p class="text-center text-muted">Encuentra el mejor calzado deportivo con calidad garantizada.</p>
-    
+
     <div class="row">
-        @for ($i = 1; $i <= 12; $i++)
+        @foreach ($products as $product)
             <div class="col-md-4 mb-4">
                 <div class="card product-card">
-                    <img src="{{ asset('assets/img/tenis' . $i . '.jpg') }}" class="card-img-top" alt="Tenis {{ $i }}">
+                    <img src="{{ asset('assets/img/tenis' . $product->id . '.jpg') }}" class="card-img-top" alt="{{ $product->name }}">
                     <div class="card-body text-center">
-                        <h5 class="card-title product-title">Modelo Tenis {{ $i }}</h5>
-                        <p class="card-text product-price">Precio sin IVA: <strong>$150.000</strong></p>
+                        <h5 class="card-title product-title">{{ $product->name }}</h5>
+                        <p class="card-text product-price">Precio sin IVA: <strong>${{ number_format($product->price, 0, ',', '.') }}</strong></p>
                         <form action="{{ route('cart.add') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="product" value="Tenis {{ $i }}">
-                        <input type="hidden" name="price" value="150000">
-                        <button type="submit" class="btn btn-primary w-100">Añadir al carrito 🛒</button>
-                        </form>
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
 
+                            {{-- Tallas --}}
+                            <select name="size_id" class="form-control mb-2" required>
+                                <option value="">Seleccione Talla</option>
+                                @foreach ($product->variants->pluck('size')->unique('id') as $size)
+                                    <option value="{{ $size->id }}">{{ $size->label }}</option>
+                                @endforeach
+                            </select>
+
+                            {{-- Colores --}}
+                            <select name="color_id" class="form-control mb-2" required>
+                                <option value="">Seleccione Color</option>
+                                @foreach ($product->variants->pluck('color')->unique('id') as $color)
+                                    <option value="{{ $color->id }}">{{ $color->name }}</option>
+                                @endforeach
+                            </select>
+
+                            <button type="submit" class="btn btn-primary w-100">Añadir al carrito 🛒</button>
+                        </form>
                     </div>
                 </div>
             </div>
-        @endfor
+        @endforeach
     </div>
 </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        let addToCartButtons = document.querySelectorAll(".add-to-cart");
-        
-        addToCartButtons.forEach(button => {
-            button.addEventListener("click", function() {
-                let product = this.getAttribute("data-product");
-                let price = this.getAttribute("data-price");
-                alert(`Producto agregado al carrito: ${product} - Precio: $${price}`);
-            });
-        });
-    });
-</script>
 @endsection
