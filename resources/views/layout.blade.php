@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="{{ asset('assets/css/fontawesome.min.css') }}">
-    
 </head>
 
 @php use Illuminate\Support\Facades\Auth; @endphp
@@ -45,61 +44,73 @@
     <nav class="navbar navbar-expand-lg navbar-light shadow">
     <div class="container d-flex justify-content-between align-items-center">
         <a class="navbar-brand d-flex align-items-center text-success logo h1" href="{{ url('/') }}">
-            <!-- Agregamos el Logo -->
             <img src="{{ asset('assets/img/logomyp.jpg') }}" alt="Logo MYP" class="logo-img">
             <span class="ms-2">MYP TIENDA DE ROPA</span>
         </a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
-                <div class="flex-fill">
-                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                        <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">INICIO</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url('/about') }}">NOSOTROS</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url('/shop') }}">TIENDA</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url('/contact') }}">CONTACTONOS</a></li>
-
-                        
-                     @auth
-                    @if(Auth::user()->role === 'admin')
-                    <li class="nav-item mx-2">
-                    <a href="{{ route('admin.products.index') }}" class="btn btn-custom btn-sm">
-                    <i class="fas fa-cogs me-1"></i> Admin
-                    </a>
-                     </li>
-                     <li class="nav-item">
-                     <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                    @csrf
-                    <button type="submit" class="btn btn-outline-danger btn-sm">
-                    <i class="fas fa-sign-out-alt me-1"></i> Salir
-                    </button>
-                    </form>
-                    </li>
-                    @endif
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+            <div class="flex-fill">
+                <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                    <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">INICIO</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url('/about') }}">NOSOTROS</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url('/contact') }}">CONTACTANOS</a></li>
+                    @auth
+                        @if(Auth::user()->role === 'admin')
+                            <li class="nav-item mx-2">
+                                <a href="{{ route('admin.products.index') }}" class="btn btn-custom btn-sm">
+                                    <i class="fas fa-cogs me-1"></i> Admin
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                                    @csrf
+                                    <button type="submit" class="btn btn-outline-danger btn-sm">
+                                        <i class="fas fa-sign-out-alt me-1"></i> Salir
+                                    </button>
+                                </form>
+                            </li>
+                        @endif
                     @endauth
-
-                    </ul>
-                </div>
-                <div class="navbar align-self-center d-flex">
-                <a class="nav-icon position-relative text-decoration-none" href="{{ route('cart.index') }}">
-                <i class="fa fa-fw fa-shopping-cart text-dark"></i>
-                <span class="badge rounded-pill bg-light text-dark">
-                {{ count(session('cart', [])) }}
-                </span>
-                 </a>
-
-                 
-                    <a class="nav-icon position-relative text-decoration-none" href="#">
-                        <i class="fa fa-fw fa-user text-dark mr-3"></i>
-                        <span class="badge rounded-pill bg-light text-dark">+99</span>
-                    </a>
-                </div>
+                </ul>
+            </div>
+            <div class="navbar align-self-center d-flex">
+                <a class="nav-icon position-relative text-decoration-none me-3" href="{{ route('cart.index') }}">
+                    <i class="fa fa-fw fa-shopping-cart text-dark"></i>
+                    <span class="badge rounded-pill bg-light text-dark">
+                        {{ count(session('cart', [])) }}
+                    </span>
+                </a>
+                <button type="button" class="btn btn-outline-success btn-sm ms-2" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    <i class="fas fa-sign-in-alt "></i> Iniciar Sesión
+                </button>
             </div>
         </div>
+    </div>
     </nav>
 
-    <!-- Contenido dinámico de cada página -->
+   <!-- Modal Login -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <!-- Aquí sí debe ir el include correctamente -->
+            <div class="modal-body">
+                @include('auth.partials.login-form')
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Contenido -->
     <main class="container">
         @yield('content')
     </main>
@@ -115,20 +126,11 @@
                         <li><i class="fa fa-envelope fa-fw"></i> <a class="text-decoration-none" href="mailto:info@company.com">MYP_TIENDA@SOLOMODA.com</a></li>
                     </ul>
                     <div class="mt-3">
-    <a href="https://facebook.com" target="_blank" class="text-light me-3">
-        <i class="fab fa-facebook-f"></i>
-    </a>
-    <a href="https://instagram.com" target="_blank" class="text-light me-3">
-        <i class="fab fa-instagram"></i>
-    </a>
-    <a href="https://twitter.com" target="_blank" class="text-light me-3">
-        <i class="fab fa-twitter"></i>
-    </a>
-    <a href="https://wa.me/573001234567" target="_blank" class="text-light">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-</div>
-
+                        <a href="https://facebook.com" target="_blank" class="text-light me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com" target="_blank" class="text-light me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="https://twitter.com" target="_blank" class="text-light me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="https://wa.me/573001234567" target="_blank" class="text-light"><i class="fab fa-whatsapp"></i></a>
+                    </div>
                 </div>
             </div>
         </div>

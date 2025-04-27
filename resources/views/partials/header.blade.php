@@ -15,7 +15,6 @@
                 <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                     <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">INICIO</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('about') }}">NOSOTROS</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('shop') }}">TIENDA</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('contact') }}">CONTACTANOS</a></li>
                     
                     @auth

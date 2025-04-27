@@ -10,7 +10,7 @@
                 <div class="col-md-8 text-dark">
                     <h1>Bienvenido a nuestra tienda</h1>
                     <p>Encuentra la mejor moda y calzado con la mejor calidad y estilo. Explora nuestras ofertas exclusivas.</p>
-                    <a href="{{ route('shop') }}" class="btn btn-success">Ir a la tienda</a>
+                    
                 </div>
                 <div class="col-md-4">
                     <img src="{{ asset('assets/img/home-banner.jpg') }}" alt="Banner Home" class="img-fluid">

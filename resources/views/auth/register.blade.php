@@ -32,7 +32,7 @@
         </form>
 
         <div class="text-center mt-3">
-            ¿Ya tienes cuenta? <a href="{{ route('index') }}">Inicia sesión</a>
+            ¿Ya tienes cuenta? <a href="{{ route('home') }}">Inicia sesión</a>
             
 
         </div>
