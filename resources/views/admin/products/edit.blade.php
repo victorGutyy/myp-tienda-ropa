@@ -39,6 +39,12 @@
             <input type="number" name="quantity" value="{{ old('quantity', $product->quantity) }}" class="form-control" required>
         </div>
 
+        <div class="form-group">
+            <label for="category">Categoría</label>
+            <input type="text" name="category" class="form-control" value="{{ $product->category }}" required>
+        </div>
+
+
         <button type="submit" class="btn btn-primary">Actualizar</button>
         <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>

@@ -20,6 +20,11 @@
             <label class="form-label">Cantidad</label>
             <input type="number" name="quantity" class="form-control" required>
         </div>
+        <div class="form-group">
+            <label for="category">Categoría</label>
+            <input type="text" name="category" class="form-control" required>
+        </div>
+
         <button type="submit" class="btn btn-success">Guardar Producto</button>
     </form>
 </div>
