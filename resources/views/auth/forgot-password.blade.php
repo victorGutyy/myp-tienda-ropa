@@ -21,7 +21,8 @@
         </form>
 
         <div class="text-center mt-3">
-            <a href="{{ route('index') }}">Volver al inicio</a>
+        <a href="{{ route('home') }}">Volver al inicio</a>
+
         </div>
     </div>
 </div>
