@@ -7,59 +7,55 @@
 <div class="container mt-5">
     <h2 class="text-center text-success">Catálogo de Ropa Masculina</h2>
     <p class="text-center text-muted">Explora camisas y pantalones elegantes y casuales para caballeros.</p>
-    
+
     <div class="row">
-        @for ($i = 1; $i <= 6; $i++)
-            <!-- Camisas -->
+        @foreach ($products as $product)
             <div class="col-md-4 mb-4">
                 <div class="card product-card">
-                    <img src="{{ asset('assets/img/camisa' . $i . '.jpg') }}" class="card-img-top" alt="Camisa {{ $i }}">
+
+                @if (str_contains($product->name, 'Camisa'))
+                    <img src="{{ asset('assets/img/camisa' . (int) filter_var($product->name, FILTER_SANITIZE_NUMBER_INT) . '.jpg') }}" class="card-img-top" alt="{{ $product->name }}">
+                @elseif (str_contains($product->name, 'Pantalón'))
+                    <img src="{{ asset('assets/img/pantalon' . (int) filter_var($product->name, FILTER_SANITIZE_NUMBER_INT) . '.jpg') }}" class="card-img-top" alt="{{ $product->name }}">
+                @endif
+
                     <div class="card-body text-center">
-                        <h5 class="card-title product-title">Camisa {{ $i }}</h5>
-                        <p class="card-text product-price">Precio: <strong>$80.000</strong></p>
+                        <h5 class="card-title product-title">{{ $product->name }}</h5>
+                        <p class="card-text product-price">
+                            Precio sin IVA: <strong>${{ number_format($product->price, 0, ',', '.') }}</strong>
+                        </p>
                         <form action="{{ route('cart.add') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="product" value="Camisa {{ $i }}">
-                        <input type="hidden" name="price" value="100000">
-                        <button type="submit" class="btn btn-primary w-100">Añadir al carrito 🛒</button>
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+
+                            {{-- Tallas --}}
+                            <select name="size_id" class="form-control mb-2" required>
+                                <option value="">Seleccione Talla</option>
+                                @foreach ($product->variants->unique('size_id') as $variant)
+                                    @if ($variant->size)
+                                        <option value="{{ $variant->size->id }}">{{ $variant->size->label }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+
+                            {{-- Colores --}}
+                            <select name="color_id" class="form-control mb-2" required>
+                                <option value="">Seleccione Color</option>
+                                @foreach ($product->variants->unique('color_id') as $variant)
+                                    @if ($variant->color)
+                                        <option value="{{ $variant->color->id }}">{{ $variant->color->name }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+
+
+                            <button type="submit" class="btn btn-primary w-100">Añadir al carrito 🛒</button>
                         </form>
                     </div>
                 </div>
             </div>
-        @endfor
-
-        @for ($i = 1; $i <= 6; $i++)
-            <!-- Pantalones -->
-            <div class="col-md-4 mb-4">
-                <div class="card product-card">
-                    <img src="{{ asset('assets/img/pantalon' . $i . '.jpg') }}" class="card-img-top" alt="Pantalón {{ $i }}">
-                    <div class="card-body text-center">
-                        <h5 class="card-title product-title">Pantalón {{ $i }}</h5>
-                        <p class="card-text product-price">Precio sin IVA: <strong>$100.000</strong></p>
-                        <form action="{{ route('cart.add') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="product" value="Pantalon {{ $i }}">
-                        <input type="hidden" name="price" value="100000">
-                        <button type="submit" class="btn btn-primary w-100">Añadir al carrito 🛒</button>
-                        </form>
-
-
-                    </div>
-                </div>
-            </div>
-        @endfor
+        @endforeach
     </div>
 </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        document.querySelectorAll(".add-to-cart").forEach(button => {
-            button.addEventListener("click", function() {
-                let product = this.dataset.product;
-                let price = this.dataset.price;
-                alert(`Producto agregado al carrito: ${product} - Precio: $${price}`);
-            });
-        });
-    });
-</script>
 @endsection

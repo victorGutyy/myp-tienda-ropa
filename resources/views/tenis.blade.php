@@ -16,6 +16,7 @@
                     <div class="card-body text-center">
                         <h5 class="card-title product-title">{{ $product->name }}</h5>
                         <p class="card-text product-price">Precio sin IVA: <strong>${{ number_format($product->price, 0, ',', '.') }}</strong></p>
+                        
                         <form action="{{ route('cart.add') }}" method="POST">
                             @csrf
                             <input type="hidden" name="product_id" value="{{ $product->id }}">
@@ -23,19 +24,34 @@
                             {{-- Tallas --}}
                             <select name="size_id" class="form-control mb-2" required>
                                 <option value="">Seleccione Talla</option>
-                                @foreach ($product->variants->pluck('size')->unique('id') as $size)
-                                    <option value="{{ $size->id }}">{{ $size->label }}</option>
+                                @php
+                                    $sizes = $product->variants->map(function ($variant) {
+                                        return $variant->size;
+                                    })->unique('id');
+                                @endphp
+                                @foreach ($sizes as $size)
+                                    @if ($size)
+                                        <option value="{{ $size->id }}">{{ $size->label }}</option>
+                                    @endif
                                 @endforeach
                             </select>
 
                             {{-- Colores --}}
                             <select name="color_id" class="form-control mb-2" required>
                                 <option value="">Seleccione Color</option>
-                                @foreach ($product->variants->pluck('color')->unique('id') as $color)
-                                    <option value="{{ $color->id }}">{{ $color->name }}</option>
+                                @php
+                                    $colors = $product->variants->map(function ($variant) {
+                                        return $variant->color;
+                                    })->unique('id');
+                                @endphp
+                                @foreach ($colors as $color)
+                                    @if ($color)
+                                        <option value="{{ $color->id }}">{{ $color->name }}</option>
+                                    @endif
                                 @endforeach
                             </select>
 
+                            {{-- Botón --}}
                             <button type="submit" class="btn btn-primary w-100">Añadir al carrito 🛒</button>
                         </form>
                     </div>

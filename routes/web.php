@@ -122,13 +122,11 @@ Route::get('/about', function () {
 
 Route::get('/tenis', [ProductController::class, 'tenis'])->name('tenis');
 
-Route::get('/ropa-masculina', function () {
-    return view('ropa_masculina');
-})->name('ropa.masculina');
+Route::get('/ropa-masculina', [ProductController::class, 'ropaMasculina'])->name('ropa.masculina');
 
-Route::get('/ropa-femenina', function () {
-    return view('ropa_femenina');
-})->name('ropa.femenina');
+
+Route::get('/ropa-femenina', [ProductController::class, 'ropaFemenina'])->name('ropa.femenina');
+
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');

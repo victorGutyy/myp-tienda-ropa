@@ -47,7 +47,7 @@ class ProductController extends Controller
             'category' => 'required|string|max:255', // ➡️ Añadir validación de categoría
     ]);
 
-    Product::update($request->only(['name', 'price', 'quantity', 'category']));
+    $product::update($request->only(['name', 'price', 'quantity', 'category']));
 
         return redirect()->route('admin.products.index')->with('success', 'Producto actualizado correctamente.');
     }
@@ -67,6 +67,28 @@ class ProductController extends Controller
 
     return view('tenis', compact('products'));
 }
+
+    public function ropaMasculina()
+{
+    $products = Product::with('variants.color', 'variants.size')
+                ->where('category', 'ropa_masculina')
+                ->orderBy('name')
+                ->get();
+
+    return view('ropa_masculina', compact('products'));
+}
+
+public function ropaFemenina()
+{
+    $products = Product::with('variants.color', 'variants.size')
+                ->where('category', 'ropa_femenina')
+                ->orderBy('id')
+                ->get();
+
+    return view('ropa_femenina', compact('products'));
+}
+
+
 
 
     
