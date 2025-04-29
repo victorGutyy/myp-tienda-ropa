@@ -56,7 +56,7 @@
                     <img src="{{ asset('assets/img/masculino.jpg') }}" class="card-img-top" alt="Producto 3">
                     <div class="card-body">
                         <h5 class="card-title">Ropa masculina</h5>
-                        <p class="card-text">Desde $100.000</p>
+                        <p class="card-text">Desde $80.000</p>
                         <a href="{{ route('ropa.masculina') }}" class="btn btn-primary">Ver más</a>
                     </div>
                 </div>

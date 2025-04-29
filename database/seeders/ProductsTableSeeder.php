@@ -19,7 +19,7 @@ class ProductsTableSeeder extends Seeder
             $products[] = [
                 'name' => 'Tenis ' . $i,
                 'price' => 150000,
-                'image' => 'assets/img/tenis' . $i . '.png',
+                'image' => 'assets/img/tenis' . $i . '.jpg',
                 'category' => 'Tenis',
                 'quantity' => 10,
                 'created_at' => now(),
@@ -32,7 +32,7 @@ class ProductsTableSeeder extends Seeder
             $products[] = [
                 'name' => 'Camisa ' . $i,
                 'price' => 80000,
-                'image' => 'assets/img/camisa' . $i . '.png',
+                'image' => 'assets/img/camisa' . $i . '.jpg',
                 'category' => 'Ropa Masculina',
                 'quantity' => 10,
                 'created_at' => now(),
@@ -45,7 +45,7 @@ class ProductsTableSeeder extends Seeder
             $products[] = [
                 'name' => 'Pantalón ' . $i,
                 'price' => 90000,
-                'image' => 'assets/img/pantalon' . $i . '.png',
+                'image' => 'assets/img/pantalon' . $i . '.jpg',
                 'category' => 'Ropa Masculina',
                 'quantity' => 10,
                 'created_at' => now(),
@@ -58,7 +58,7 @@ class ProductsTableSeeder extends Seeder
             $products[] = [
                 'name' => 'Prenda Femenina ' . $i,
                 'price' => 70000,
-                'image' => 'assets/img/femenino' . $i . '.png',
+                'image' => 'assets/img/femenino' . $i . '.jpg',
                 'category' => 'Ropa Femenina',
                 'quantity' => 10,
                 'created_at' => now(),
