@@ -3,8 +3,8 @@
 @section('title', 'Home')
 
 @section('content')
-    <!-- Hero Section -->
-    <section class="bg-light py-5">
+   <!-- Hero Section -->
+   <section class="bg-light py-5">
         <div class="container">
             <div class="row align-items-center py-5">
                 <div class="col-md-8 text-dark">
