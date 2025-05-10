@@ -219,5 +219,57 @@ footer .fab:hover {
     color: #4CAF50; /* Verde o tu color institucional */
 }
 
+/* Estilo del contenedor del chatbot */
+#chat-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 320px;
+    max-height: 450px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    font-family: 'Roboto', sans-serif;
+    z-index: 9999;
+}
+
+/* Cabecera */
+#chat-header {
+    background: linear-gradient(90deg, #4CAF50, #2E7D32);
+    color: #fff;
+    padding: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Cuerpo del chat */
+#chatbox {
+    background-color: #fff;
+    padding: 12px;
+    height: 300px;
+    overflow-y: auto;
+    font-size: 14px;
+}
+
+/* Entrada del usuario */
+#chat-input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-top: 1px solid #ccc;
+    font-size: 14px;
+    outline: none;
+}
+
+/* Burbujas de chat */
+#chatbox div {
+    margin-bottom: 8px;
+}
+
+#chatbox div strong {
+    color: #2E7D32;
+}
+
+
 
 
