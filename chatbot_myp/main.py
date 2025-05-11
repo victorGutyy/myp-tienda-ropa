@@ -6,7 +6,7 @@ import unicodedata
 
 
 # Cargar modelo de lenguaje en español
-nlp = spacy.load("es_core_news_sm")
+nlp = spacy.load("es_core_news_md")
 
 app = FastAPI()
 
@@ -33,7 +33,7 @@ faq = {
     "hola": "¡Hola! ¿En qué puedo ayudarte con tu estilo o ropa hoy?",
     "buenos dias": "¡Buenos días! Estoy aquí para asesorarte en lo que necesites de moda.",
     "buenas tardes": "¡Buenas tardes! ¿Buscas algo en especial?",
-    "¿puedes ayudame?": "¡Claro que sí! Puedes preguntarme por tallas, combinaciones o estilos según la ocasión.",
+    "¿puedes ayudarme?": "¡Claro que sí! Puedes preguntarme por tallas, combinaciones o estilos según la ocasión.",
     "necesito ayuda": "Estoy para ayudarte. ¿Qué estás buscando hoy?",
     "gracias": "¡Con gusto! Si tienes más dudas, aquí estaré.",
     "muchas gracias": "¡Siempre es un placer ayudarte!",
@@ -88,24 +88,74 @@ faq = {
     "¿Qué usar para un paseo al aire libre?": "Jeans, camiseta cómoda, tenis y una gorra o sombrero.",
     "¿Qué estilo de jeans está en tendencia?": "Jeans rectos, mom jeans y estilo wide leg están de moda.",
     "¿Qué diferencia hay entre ropa oversize y ropa holgada?": "La oversize es más estructurada y estilizada. La holgada es más suelta pero menos intencionada.",
+    "como acceder a la guia de tallas": "Puedes encontrarla en cada página de producto, justo debajo de la descripción.",
+    "como registrarme en el sitio web": "Haz clic en 'Iniciar Sesión' y luego selecciona la opción 'Registrarse'.",
+    "puedo pagar contra entrega": "Actualmente solo manejamos pagos en línea. Pronto habilitaremos nuevas opciones.",
+    "cuanto tiempo tarda el envio": "El tiempo estimado es de 3 a 5 días hábiles, dependiendo de tu ciudad.",
+    "que metodos de pago aceptan": "Aceptamos tarjeta de crédito, débito y transferencias por PSE.",
+    "como rastrear mi pedido": "Una vez tu compra sea despachada recibirás un correo con el enlace de seguimiento.",
+    "que hago si mi producto llega dañado": "Contáctanos de inmediato y gestionaremos el cambio sin costo adicional.",
+    "puedo cambiar un producto": "Sí, puedes solicitar el cambio dentro de los primeros 5 días tras la entrega.",
+    "puedo devolver un producto": "Sí, siempre que esté sin uso y en su empaque original. Consulta nuestra política de devoluciones.",
+    "como aplicar un cupón de descuento": "Durante el pago, verás un campo donde puedes ingresar el código promocional.",
+    "tienen servicio al cliente": "Sí, puedes escribirnos al correo o WhatsApp y responderemos lo antes posible.",
+    "puedo comprar sin registrarme": "Por ahora, es necesario crear una cuenta para procesar tu compra.",
+    "como eliminar mi cuenta": "Escríbenos a soporte y procesaremos la eliminación de tu cuenta en 24 horas.",
+    "como se si hay promociones activas": "Las promociones se destacan en la página principal y se anuncian en redes sociales.",
+    "puedo comprar desde el exterior": "Por el momento solo vendemos dentro de Colombia.",
+    "como contacto con soporte tecnico": "Puedes usar el formulario de contacto o escribirnos al correo en la sección 'Contáctanos'.",
+    "los productos tienen garantia": "Sí, ofrecemos garantía de calidad por 30 días en todos nuestros productos.",
+    "como cambiar mi direccion de entrega": "Puedes editar tu dirección desde tu perfil antes de confirmar el pedido.",
+    "puedo usar varios cupones a la vez": "Solo se puede aplicar un cupón por compra.",
+    "la tienda tiene local fisico": "Actualmente somos 100% online, pero estamos trabajando para abrir un punto físico.",
+    "puedo ver los productos sin iniciar sesion": "Sí, todo el catálogo está disponible para navegar sin iniciar sesión.",
+    "las imagenes son reales": "Sí, cada fotografía representa el producto real en su respectivo color y talla.",
+    "como saber si hay stock disponible": "La página del producto te mostrará si está disponible y las tallas disponibles.",
+    "los productos son nacionales o importados": "Tenemos de ambos tipos, puedes verlo en la descripción del producto.",
+    "los precios incluyen iva": "No, el precio publicado es sin IVA. Este se suma al finalizar la compra.",
+    "como acceder a mis compras anteriores": "Desde tu perfil, puedes ver el historial completo de tus pedidos.",
+    "que hago si no me llego el correo de confirmacion": "Revisa la carpeta de spam o escríbenos y lo reenviamos.",
+    "que productos estan en tendencia": "Puedes visitar la sección 'Productos Destacados' en la página principal.",
+    "que productos recomiendan para regalo": "Recomendamos camisetas personalizadas, accesorios o calzado unisex.",
+    "como cambiar mi contraseña": "Inicia sesión, ve a 'Perfil' y selecciona 'Cambiar contraseña'.",
+
 }
+
+def buscar_respuesta_semantica(pregunta_usuario, nombre_usuario):
+    doc_usuario = nlp(pregunta_usuario)
+    mejor_similitud = 0
+    mejor_pregunta = None
+
+    for pregunta_faq in faq:
+        doc_faq = nlp(limpiar_texto(pregunta_faq))
+        similitud = doc_usuario.similarity(doc_faq)
+        if similitud > mejor_similitud:
+            mejor_similitud = similitud
+            mejor_pregunta = pregunta_faq
+
+    if mejor_similitud >= 0.80:
+        respuesta = faq[mejor_pregunta]
+        return f"{respuesta} {nombre_usuario}, recuerda que manejamos prendas desde $80.000. ¡Explora las secciones y encuentra tu estilo!"
+    else:
+        return f"Lo siento {nombre_usuario}, aún no tengo respuesta para esa pregunta. ¿Puedes intentarlo de otra forma?"
 
 @app.post("/chat")
 def chat(request: ChatRequest):
     nombre = request.name.strip().capitalize()
     pregunta = limpiar_texto(request.question.strip())
 
+    # Comprobación exacta o parcial (como ya tienes)
     for key in faq:
         key_limpia = limpiar_texto(key)
         if pregunta in key_limpia or key_limpia in pregunta:
             return {
                 "response": f"{faq[key]} {nombre}, recuerda que manejamos prendas desde $80.000. ¡Explora las secciones y encuentra tu estilo!"
             }
-        # Coincidencia parcial flexible
-        if pregunta in key_limpia or key_limpia in pregunta:
-            return {"response": faq[key]}
-    else:
-        return {"response": f"Lo siento {nombre}, aún no tengo respuesta para esa pregunta. ¿Puedes intentarlo de otra forma?"}
+
+    # Si no hay coincidencia exacta, buscar por similitud semántica
+    respuesta_semantica = buscar_respuesta_semantica(pregunta, nombre)
+    return {"response": respuesta_semantica}
+
 
 @app.get("/")
 def root():
