@@ -270,6 +270,61 @@ footer .fab:hover {
     color: #2E7D32;
 }
 
+/* Contenedor principal del chatbot */
+#chatbot-container {
+    display: none;
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 320px;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    font-family: 'Roboto', sans-serif;
+    z-index: 9999;
+}
+
+/* Cabecera del chatbot con logo y título */
+#chatbot-header {
+    background-color: #28a745;
+    color: white;
+    padding: 12px;
+    font-weight: bold;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Logo circular */
+#chatbot-header img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: white;
+    object-fit: cover;
+}
+
+/* Área de mensajes */
+#chatbox {
+    height: 220px;
+    overflow-y: auto;
+    padding: 12px;
+    font-size: 14px;
+}
+
+/* Entrada del usuario */
+#chat-input {
+    width: 100%;
+    border: none;
+    border-top: 1px solid #ccc;
+    padding: 10px;
+    font-size: 14px;
+}
+
+
 
 
 

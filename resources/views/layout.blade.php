@@ -136,66 +136,95 @@
         </div>
     </footer>
 
-    <!-- JS -->
-    <script src="{{ asset('assets/js/jquery-1.11.0.min.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/js/templatemo.js') }}"></script>
-    <script src="{{ asset('assets/js/custom.js') }}"></script>
+   <!-- JS -->
+<script src="{{ asset('assets/js/jquery-1.11.0.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('assets/js/templatemo.js') }}"></script>
+<script src="{{ asset('assets/js/custom.js') }}"></script>
 
-        <!-- Chatbot MYP TIENDA -->
-    <div id="chatbot-container" style="position: fixed; bottom: 20px; right: 20px; width: 320px; background: white; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.2); z-index: 1000;">
-        <div style="background-color: #28a745; color: white; padding: 10px; border-top-left-radius: 10px; border-top-right-radius: 10px;">
-            <strong>Asesor de Moda</strong>
-        </div>
-        <div id="chatbox" style="height: 220px; overflow-y: auto; padding: 10px; font-size: 14px;"></div>
-        <input type="text" id="chat-input" placeholder="Escribe tu pregunta..." style="width: 100%; border: none; border-top: 1px solid #ccc; padding: 10px;">
+<div id="chatbot-container">
+    <div id="chatbot-header">
+        <img src="{{ asset('assets/img/logomyp.jpg') }}" alt="Logo MYP">
+        <span>Asesor de Moda MYP</span>
     </div>
+    <div id="chatbox"></div>
+    <input type="text" id="chat-input" placeholder="Escribe tu pregunta...">
+</div>
+<!-- Botón flotante del chatbot -->
+<button id="chat-toggle-btn" style="
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #28a745;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    color: white;
+    font-size: 28px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    z-index: 9999;
+">
+    💬
+</button>
 
-    <script>
-    const chatInput = document.getElementById("chat-input");
-    const chatbox = document.getElementById("chatbox");
 
-    let userName = null;
-    let isWaitingForName = true;
+<!-- Script principal del chatbot -->
+<script>
+const chatInput = document.getElementById("chat-input");
+const chatbox = document.getElementById("chatbox");
+const chatContainer = document.getElementById("chatbot-container");
+const toggleBtn = document.getElementById("chat-toggle-btn");
 
-    // Mostrar el primer mensaje del chatbot
-    chatbox.innerHTML += `<div><strong>MYP:</strong> ¡Hola! Bienvenido a MYP Tienda de Ropa. ¿Cómo te llamas?</div>`;
+let userName = null;
+let isWaitingForName = true;
 
-    chatInput.addEventListener("keydown", async function (e) {
-        if (e.key === "Enter" && chatInput.value.trim() !== "") {
-            const message = chatInput.value.trim();
-            chatbox.innerHTML += `<div><strong>Tú:</strong> ${message}</div>`;
-            chatInput.value = "";
+// Mostrar el primer mensaje del chatbot
+chatbox.innerHTML += `<div><strong>MYP:</strong> ¡Hola! Bienvenido a MYP Tienda de Ropa. ¿Cómo te llamas?</div>`;
 
-            if (isWaitingForName) {
-                userName = message;
-                isWaitingForName = false;
+chatInput.addEventListener("keydown", async function (e) {
+    if (e.key === "Enter" && chatInput.value.trim() !== "") {
+        const message = chatInput.value.trim();
+        chatbox.innerHTML += `<div><strong>Tú:</strong> ${message}</div>`;
+        chatInput.value = "";
 
-                chatbox.innerHTML += `<div><strong>MYP:</strong> ¡Mucho gusto, ${userName}! ¿En qué puedo ayudarte hoy? Puedes preguntarme sobre tallas, colores o combinaciones de ropa.</div>`;
-                return;
-            }
-
-            try {
-                const res = await fetch("http://127.0.0.1:8001/chat", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        name: userName,
-                        question: message
-                    })
-                });
-
-                const data = await res.json();
-                chatbox.innerHTML += `<div><strong>MYP:</strong> ${data.response}</div>`;
-                chatbox.scrollTop = chatbox.scrollHeight;
-            } catch (err) {
-                chatbox.innerHTML += `<div style="color:red;"><strong>Error:</strong> No se pudo conectar con el chatbot.</div>`;
-            }
+        if (isWaitingForName) {
+            userName = message;
+            isWaitingForName = false;
+            chatbox.innerHTML += `<div><strong>MYP:</strong> ¡Mucho gusto, ${userName}! ¿En qué puedo ayudarte hoy?</div>`;
+            return;
         }
-    });
+
+        try {
+            const res = await fetch("http://127.0.0.1:8001/chat", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: userName,
+                    question: message
+                })
+            });
+
+            const data = await res.json();
+            chatbox.innerHTML += `<div><strong>MYP:</strong> ${data.response}</div>`;
+            chatbox.scrollTop = chatbox.scrollHeight;
+        } catch (err) {
+            chatbox.innerHTML += `<div style="color:red;"><strong>Error:</strong> No se pudo conectar con el chatbot.</div>`;
+        }
+    }
+});
+
+// Mostrar/Ocultar el chatbot
+toggleBtn.addEventListener("click", () => {
+    const isVisible = chatContainer.style.display === "block";
+    chatContainer.style.display = isVisible ? "none" : "block";
+});
 </script>
+
+
 
 
 
