@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light shadow">
+<nav class="navbar navbar-expand-lg navbar-light shadow fixed-top bg-white">
     <div class="container d-flex justify-content-between align-items-center">
     <a class="navbar-brand d-flex align-items-center text-success logo h1" href="{{ url('/') }}">
             <!-- Agregamos el Logo -->

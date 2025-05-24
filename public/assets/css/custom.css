@@ -13,6 +13,8 @@ Custom Css
 
 body { 
     background-color: #F8F8FF;
+    padding-top: 80px; /* Ajusta el valor según la altura del navbar */
+    
 }
 /* Estilos para el Formulario */
 .form-container {
@@ -323,6 +325,43 @@ footer .fab:hover {
     padding: 10px;
     font-size: 14px;
 }
+
+/* Intro video container */
+.video-intro-container {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+
+/* Video full width */
+.video-intro-container video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Welcome message hidden initially */
+#welcome-content {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
+/* Fade in animation */
+.fade-in {
+    animation: fadeIn 2s ease-in forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+#play-btn {
+    font-size: 1.2rem;
+    padding: 12px 24px;
+}
+
 
 
 

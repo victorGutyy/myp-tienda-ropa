@@ -3,21 +3,29 @@
 @section('title', 'Home')
 
 @section('content')
-   <!-- Hero Section -->
-   <section class="bg-light py-5">
-        <div class="container">
-            <div class="row align-items-center py-5">
-                <div class="col-md-8 text-dark">
-                    <h1>Bienvenido a nuestra tienda</h1>
-                    <p>Encuentra la mejor moda y calzado con la mejor calidad y estilo. Explora nuestras ofertas exclusivas.</p>
-                    
-                </div>
-                <div class="col-md-4">
-                    <img src="{{ asset('assets/img/home-banner.jpg') }}" alt="Banner Home" class="img-fluid">
-                </div>
+   <!-- Video Intro Section -->
+<section class="video-intro-container text-center">
+    <video id="intro-video" class="video-fluid d-none" controls>
+        <source src="{{ asset('assets/videos/video_myp_tienda.mp4') }}" type="video/mp4">
+        Tu navegador no soporta la reproducción de video.
+    </video>
+
+    <button id="play-btn" class="btn btn-success mt-4">▶ Ver presentación</button>
+
+    <div id="welcome-content" class="d-none fade-in mt-5">
+        <div class="row align-items-center py-5">
+            <div class="col-md-8 text-dark">
+                <h1>Bienvenido a nuestra tienda</h1>
+                <p>Encuentra la mejor moda y calzado con la mejor calidad y estilo. Explora nuestras ofertas exclusivas.</p>
+            </div>
+            <div class="col-md-4">
+                <img src="{{ asset('assets/img/home-banner.jpg') }}" alt="Banner Home" class="img-fluid rounded-circle shadow">
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+
 
     <!-- Featured Products -->
     <section class="container py-5">
