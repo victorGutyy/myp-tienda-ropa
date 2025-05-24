@@ -67,10 +67,36 @@ class CartController extends Controller
     }
 
     public function checkout()
-    {
-        $cart = Session::get('cart', []);
-        $total = array_sum(array_column($cart, 'price'));
+{
+    $cart = Session::get('cart', []);
+    $total = array_sum(array_column($cart, 'price'));
 
-        return view('cart.checkout', compact('cart', 'total'));
+    foreach ($cart as $item) {
+        $variant = ProductVariant::whereHas('product', function ($query) use ($item) {
+                $query->where('name', $item['product']);
+            })
+            ->whereHas('size', function ($query) use ($item) {
+                $query->where('label', $item['size']);
+            })
+            ->whereHas('color', function ($query) use ($item) {
+                $query->where('name', $item['color']);
+            })
+            ->first();
+
+        if ($variant) {
+            if ($variant->stock >= $item['quantity']) {
+                $variant->stock -= $item['quantity'];
+                $variant->save();
+            } else {
+                return back()->with('error', 'No hay suficiente stock disponible para el producto: ' . $item['product']);
+            }
+        }
     }
+
+    // Limpiar el carrito después de la compra
+    Session::forget('cart');
+
+    return view('cart.checkout', compact('cart', 'total'))->with('success', 'Compra procesada y stock actualizado.');
+}
+
 }
